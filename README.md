@@ -25,8 +25,5 @@ Este proyecto es una aplicación de Spring Boot diseñada para gestionar cursos.
 - Maven
 - MySQL
 
-### Pasos para Configurar Localmente
-
-1. Clona el repositorio:
 
 ![Imagen de cursos](https://github.com/roxanatera/ProyectosSpringBoot/blob/main/gestion-cursos-springboot/imgcursos.PNG)

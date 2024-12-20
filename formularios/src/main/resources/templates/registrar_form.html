@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de registro</title>
+  <link rel="stylesheet" type="text/css" href="/style.css" th:href="@{/style.css}">
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <div align="center">
+    <h1>Formulario de registro</h1>
+    <form th:action="@{/registrar}" th:object="${user}" method="post">
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" th:field="*{nombre}" id="nombre" required minlength="3">
+        <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error"></span>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" th:field="*{email}" id="email" required>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+      </div>
+      <div>
+        <label for="password">Contraseña:</label>
+        <input type="password" th:field="*{password}" id="password" required minlength="6">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+      </div>
+      <div>
+        <label for="genero">Género:</label>
+        <select th:field="*{genero}" id="genero" required>
+          <option value="">Selecciona un género</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenina</option>
+          <option value="O">Otro</option>
+        </select>
+        <span th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}" class="error"></span>
+      </div>
+      <div>
+        <label for="nota">Nota:</label>
+        <textarea th:field="*{nota}" id="nota"></textarea>
+        <span th:if="${#fields.hasErrors('nota')}" th:errors="*{nota}" class="error"></span>
+      </div>
+      <div>
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" th:field="*{fechaNacimiento}" id="fechaNacimiento" required>
+        <span th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" class="error"></span>
+      </div>
+      <div>
+        <label for="profession">Profesión:</label>
+        <select th:field="*{profession}" id="profession" required>
+          <option value="">-- Selecciona una profesión --</option>
+          <option th:each="profesion : ${profesiones}"
+                  th:value="${profesion}"
+                  th:text="${profesion}">Profesión</option>
+        </select>
+      </div>
+      <button type="submit">Registrar</button>
+    </form>
+  </div>
+</main>
+<footer>
+  <p>Derechos reservados © 2024</p>
+</footer>
+</body>
+</html>

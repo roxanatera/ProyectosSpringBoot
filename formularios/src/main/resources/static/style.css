@@ -1,0 +1,136 @@
+/* Aplica box-sizing a todos los elementos para incluir padding y border en el cálculo del ancho y alto */
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding-top: 50px;
+    height: 100vh;
+    overflow: auto;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Elimina el margen para alinear correctamente los elementos */
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px; /* Añade padding para asegurar espacio alrededor del contenido */
+}
+
+form {
+    width: 100%; /* Usa 100% del contenedor padre */
+    max-width: 500px; /* Máximo ancho del formulario */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio vertical entre campos */
+}
+
+
+
+form {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio vertical entre campos */
+}
+
+label {
+    display: block;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 5px; /* Añade un poco de espacio debajo de la etiqueta */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+    width: 100%; /* Ajusta el ancho incluyendo padding y border */
+    padding: 12px;
+    margin-bottom: 10px; /* Espacio debajo de cada campo */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 100px; /* Altura fija para el textarea */
+    resize: none; /* Deshabilita el redimensionamiento manual */
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #007BFF; /* Efecto hover para bordes */
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: block; /* Asegura que el botón sea un bloque para ocupar el ancho completo */
+    width: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+span.error {
+    color: red;
+    font-size: 0.8em;
+    display: block; /* Asegura que el mensaje de error se muestre en una nueva línea */
+}
+
+footer {
+background-color: #333;
+ color: white;
+ text-align: center;
+}

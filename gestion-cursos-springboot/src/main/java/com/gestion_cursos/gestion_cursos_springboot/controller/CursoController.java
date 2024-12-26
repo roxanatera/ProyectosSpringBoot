@@ -1,15 +1,24 @@
 package com.gestion_cursos.gestion_cursos_springboot.controller;
 
 import com.gestion_cursos.gestion_cursos_springboot.entity.Curso;
+import com.gestion_cursos.gestion_cursos_springboot.reports.CursoExportedPDF;
+import com.gestion_cursos.gestion_cursos_springboot.reports.CursoExporterExcel;
 import com.gestion_cursos.gestion_cursos_springboot.repository.CursoRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,7 +32,7 @@ public class CursoController {
     }
 
     @GetMapping("/cursos")
-    public String listarCursos(Model model) {
+    public String listarCursos(Model model, @Param("keyword")String keyword, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3")  int size) {
         List<Curso> cursos = cursoRepository.findAll();
         model.addAttribute("cursos", cursos);
         return "cursos";
@@ -82,5 +91,43 @@ public class CursoController {
             redirectAttributes.addFlashAttribute("message", "Error al eliminar el curso: " + e.getMessage());
         }
         return "redirect:/cursos";
+    }
+
+    //Metodo para Generar reporte
+    @GetMapping("/export/pdf")
+    public void generarReportePdf(HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormat.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue= "attachment; file=cursos" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Curso> cursos = cursoRepository.findAll();
+        CursoExportedPDF exportedPDFPDF = new CursoExportedPDF(cursos);
+        exportedPDFPDF.export(response);
+
+
+
+    }
+
+    @GetMapping("/export/excel")
+    public void generarReporteExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormat.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue= "attachment; file=cursos" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Curso> cursos = cursoRepository.findAll();
+
+        CursoExporterExcel exporterExcel= new CursoExporterExcel(cursos);
+        exporterExcel.export(response);
+
+
+
     }
 }
